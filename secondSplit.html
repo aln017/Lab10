@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 8 - E2E Testing</title>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="./styles/favicon.ico" />
+  </head>
+
+  <script>
+    const arr = [
+      '#ffd4dc',
+      '#ffe5d6',
+      '#fdffd6',
+      '#d6fff7',
+      '#e2ffde',
+      '##dedfff',
+      '#f7deff',
+    ];
+    document.onkeypress = logKey;
+    function logKey(e) {
+      if (e.key == '1') {
+        const random = Math.floor(Math.random() * arr.length);
+        document.body.style.backgroundColor = arr[random];
+        let header = document.querySelector('header');
+        header.style.backgroundColor = arr[random];
+      }
+    }
+  </script>
+
+  <body>
+    <header>
+      <h1>Journal Entries</h1>
+      <img src="./styles/settings.svg" alt="settings" width="40" height="40" />
+    </header>
+
+    <main class="double-column"></main>
+
+    <entry-page></entry-page>
+
+    <!-- journal-entry web component -->
+    <script src="./components/journal-entry.js" type="module"></script>
+    <script src="./components/entry-page.js" type="module"></script>
+
+    <!-- Router Script -->
+    <script src="./scripts/router.js" type="module"></script>
+
+    <!-- Main Script -->
+    <script src="./scripts/script.js" type="module"></script>
+    <script src="//cdn.split.io/sdk/split-10.15.7.min.js"></script>
+
+    <script>
+      // Instantiate the SDK. CDN will expose splitio globally
+      var factory = splitio({
+        core: {
+          authorizationKey: 'cdanqe652k7isldd60g3mn2f2isddpc3o1qs',
+          // your internal user id, or the account id that
+          // the user belongs to.
+          // This coudld also be a cookie you generate
+          // for anonymous users
+          key: Math.random().toString(),
+          // an OPTIONAL traffic type, if provided will be
+          // used for event tracking with the SDK client.
+          trafficType: 'A_TRAFFIC_TYPE',
+        },
+      });
+      // And get the client instance you'll use
+      var client = factory.client();
+      mainClass = document.querySelector('main');
+      client.on(client.Event.SDK_READY, function () {
+        var treatment = client.getTreatment('Double_Column_Layout');
+        if (treatment == 'on') {
+          mainClass.classList.add('double-column');
+        } else if (treatment == 'off') {
+          mainClass.classList.remove('double-column');
+        } else {
+          mainClass.classList.add('double-column');
+        }
+      });
+    </script>
+  </body>
+</html>
