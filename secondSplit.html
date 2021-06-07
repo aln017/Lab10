@@ -76,11 +76,26 @@
       client.on(client.Event.SDK_READY, function () {
         var treatment = client.getTreatment('Double_Column_Layout');
         if (treatment == 'on') {
-          mainClass.classList.add('double-column');
+          const arr = [
+            '#ffd4dc',
+            '#ffe5d6',
+            '#fdffd6',
+            '#d6fff7',
+            '#e2ffde',
+            '##dedfff',
+            '#f7deff',
+          ];
+          document.onkeypress = logKey;
+          function logKey(e) {
+            if (e.key == '1') {
+              const random = Math.floor(Math.random() * arr.length);
+              document.body.style.backgroundColor = arr[random];
+              let header = document.querySelector('header');
+              header.style.backgroundColor = arr[random];
+            }
+          }
         } else if (treatment == 'off') {
-          mainClass.classList.remove('double-column');
         } else {
-          mainClass.classList.add('double-column');
         }
       });
     </script>

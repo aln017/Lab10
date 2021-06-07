@@ -10,3 +10,6 @@ In secondSplit, you can toggle the change of the background color by pressing th
 
 Index.html:
 https://aln017.github.io/Lab10/
+
+secondSplit.html:
+https://aln017.github.io/Lab10/secondSplit.html
